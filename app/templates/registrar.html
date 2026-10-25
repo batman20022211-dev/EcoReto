@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Registrarse | Eco-Reto{% endblock %}
+{% block clase %}pagina-login{% endblock %}
+{% block body %}
+<main class="portada">
+    <section class="portada-texto">
+        <img class="portada-logo" src="{{ url_for('static', filename='i/2.png') }}" alt="Misión Eco-Reto">
+        <p id="eslogan">Pequeñas acciones<br>grandes cambios</p>
+    </section>
+
+    <section class="s-tarjeta">
+        <div><img class="iconoimg" src="{{ url_for('static', filename='i/planta.png') }}" alt="🌱"></div>
+        <h2>Crear cuenta</h2>
+        <p class="sp">Únete y registra tus acciones ecológicas.</p>
+
+        <form id="form-registro" method="post" novalidate>
+            <label class="campo">
+                <img class="icono-img" src="{{ url_for('static', filename='i/gato.png') }}" alt="Usuario">
+                <input type="text" name="usuario" id="reg-usuario" placeholder="Usuario" required>
+            </label>
+            <small class="error" id="error-reg-usuario"></small>
+
+            <label class="campo">
+                <img class="icono-img" src="{{ url_for('static', filename='i/candado.png') }}" alt="Contraseña">
+                <input type="password" name="contrasena" id="reg-contrasena" placeholder="Contraseña" required>
+            </label>
+            <small class="error" id="error-reg-contrasena"></small>
+
+            <label class="campo">
+                <img class="icono-img" src="{{ url_for('static', filename='i/candado.png') }}" alt="Confirmar">
+                <input type="password" name="confirmar" id="reg-confirmar" placeholder="Confirmar contraseña" required>
+            </label>
+            <small class="error" id="error-reg-confirmar"></small>
+            <button type="submit" class="btn-e">Registrarme</button>
+        </form>
+        <p class="p">¿Ya tienes cuenta? <a href="{{ url_for('sesion') }}">Inicia sesión</a></p>
+    </section>
+</main>
+{% endblock %}

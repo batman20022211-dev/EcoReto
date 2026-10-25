@@ -1,0 +1,45 @@
+{% extends "panel.html" %}
+{% block title %}{{ 'Editar acción' if accion else 'Nueva acción' }} | Eco-Reto{% endblock %}
+{% set pagina = 'nueva' if not accion else 'acciones' %}
+{% block contenido %}
+<section class="formulario-caja">
+    <div class="formulario-titulo">
+        <img class="formulario-icono" src="{{ url_for('static', filename='i/editar.png' if accion else 'i/hojas1.png') }}" alt="">
+        <div>
+            <h1>{{ 'Editar acción' if accion else 'Nueva acción ecológica' }}</h1>
+            <p>{{ 'Modifica la información de tu acción.' if accion else 'Registra una nueva acción que ayude al planeta.' }}</p>
+        </div>
+    </div>
+
+    <form id="form-accion" method="post" novalidate>
+        <label class="etiqueta-campo" for="tipo">Tipo de acción</label>
+        <select id="tipo" name="tipo" class="entrada" required>
+            {% for t in tipos %}
+            <option value="{{ t }}" {{ 'selected' if accion and accion.tipo == t }}>{{ t }}</option>
+            {% endfor %}
+        </select>
+
+        <label class="etiqueta-campo" for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" class="entrada" rows="3" placeholder="Escribe qué hiciste..." required>{{ accion.descripcion if accion }}</textarea>
+        <small class="error" id="error-descripcion"></small>
+
+        <label class="etiqueta-campo" for="fecha">Fecha</label>
+        <input type="date" id="fecha" name="fecha" class="entrada" value="{{ accion.fecha if accion }}" required>
+        <small class="error" id="error-fecha"></small>
+
+        <label class="etiqueta-campo" for="impacto">Impacto (kg, litros, kWh, CO₂.)</label>
+        <input type="text" id="impacto" name="impacto" class="entrada" placeholder="Ej. 5 kg, 50 litros, 2 kWh, CO₂" value="{{ accion.impacto if accion }}" required>
+        <small class="error" id="error-impacto"></small>
+
+        <div class="formulario-botones">
+            {% if accion %}
+            <button type="submit" class="btn btn-azul"><img class="icono-img" src="{{ url_for('static', filename='i/actualizar.png') }}"> Actualizar</button>
+            <a href="{{ url_for('principal') }}" class="btn btn-gris"><img class="icono-img" src="{{ url_for('static', filename='i/cancelar.png') }}"> Cancelar</a>
+            {% else %}
+            <button type="submit" class="btn btn-verde"><img class="icono-img" src="{{ url_for('static', filename='i/nueva.png') }}"> Guardar acción</button>
+            <a href="{{ url_for('principal') }}" class="btn btn-gris"><img class="icono-img" src="{{ url_for('static', filename='i/cancelar.png') }}"> Cancelar</a>
+            {% endif %}
+        </div>
+    </form>
+</section>
+{% endblock %}

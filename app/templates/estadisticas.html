@@ -1,0 +1,71 @@
+{% extends "panel.html" %}
+{% block title %}Estadísticas | Eco-Reto{% endblock %}
+{% set pagina = 'estadisticas' %}
+{% block contenido %}
+{% set iconos = {'Reciclaje': 'reciclaje.png', 'Ahorro de agua': 'gota.png', 'Transporte': 'nube.png', 'Energía': 'impacto.png'} %}
+{% set colores = {'Reciclaje': 'amarilla', 'Ahorro de agua': 'azul', 'Transporte': 'rosa', 'Energía': 'verde'} %}
+<section class="estadisticas-caja">
+    <div class="formulario-titulo">
+        <span><img class="icono-img" src="{{ url_for('static', filename='i/graficas.png') }}" alt=""></span>
+        <div>
+            <h1>Estadísticas</h1>
+            <p>Mira tu avance y el impacto que has logrado.</p>
+        </div>
+    </div>
+    <article class="meta-caja {{ 'meta-cumplida' if meta.faltan == 0 }}">
+        <div class="meta-cabecera">
+            <div>
+                <h2>Meta de la semana</h2>
+                <small>Del {{ meta.desde }} al {{ meta.hasta }}</small>
+            </div>
+            <strong class="meta-numero">{{ meta.hechas }} / {{ meta.objetivo }}</strong>
+        </div>
+        <div class="barra-fondo barra-grande" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ meta.porcentaje }}">
+            <div class="barra barra-meta" style="width: {{ meta.porcentaje }}%"></div>
+        </div>
+        <p class="meta-mensaje">
+            {% if meta.faltan == 0 %}
+            ¡Meta cumplida! Gracias por cuidar el planeta.
+            {% else %}
+            Te {{ 'falta' if meta.faltan == 1 else 'faltan' }} {{ meta.faltan }} {{ 'acción' if meta.faltan == 1 else 'acciones' }} para cumplir tu meta.
+            {% endif %}
+        </p>
+    </article>
+    <nav class="periodos" aria-label="Periodo">
+        {% for clave, nombre in periodos.items() %}
+        <a href="{{ url_for('estadisticas', periodo=clave) }}" class="periodo {{ 'activo' if clave == periodo }}">{{ nombre }}</a>
+        {% endfor %}
+    </nav>
+    <div class="estadisticas-rejilla">
+        <article class="tarjeta tarjeta-verde">
+            <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/hojas1.png') }}" alt=""></span>
+            <div>
+                <strong>{{ total }}</strong>
+                <small>Acciones en este periodo</small>
+            </div>
+        </article>
+        <article class="tarjeta tarjeta-rosa">
+            <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/nube.png') }}" alt=""></span>
+            <div>
+                <strong>{{ co2 }} kg</strong>
+                <small>CO₂ evitado</small>
+            </div>
+        </article>
+    </div>
+    <h2 class="estadistica-subtitulo">Impacto por tipo</h2>
+    {% if total == 0 %}
+    <p class="estadistica-vacia">Todavía no hay acciones en este periodo. <a href="{{ url_for('nueva') }}">Registra una</a>.</p>
+    {% endif %}
+    <div class="estadisticas-rejilla">
+        {% for r in por_tipo %}
+        <article class="tarjeta tarjeta-{{ colores[r.tipo] }}">
+            <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/' ~ iconos[r.tipo]) }}" alt=""></span>
+            <div>
+                <strong>{{ r.total }} {{ r.unidad }}</strong>
+                <small>{{ r.tipo }} · {{ r.cantidad }} {{ 'acción' if r.cantidad == 1 else 'acciones' }}</small>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

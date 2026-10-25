@@ -1,0 +1,51 @@
+{% extends "panel.html" %}
+{% block title %}Detalles | Eco-Reto{% endblock %}
+{% set pagina = 'acciones' %}
+{% block contenido %}
+<section class="formulario-caja">
+    <div class="formulario-titulo">
+        <span><img class="formulario-icono" src="{{ url_for('static', filename='i/hojas2.png') }}" alt="🌱"></span>
+        <h1>Detalles de la acción</h1>
+    </div>
+
+    <article class="detalle-tarjeta">
+        <div class="detalle-icono">
+            {% if accion.tipo == 'Reciclaje' %}<img class="iconodetalle" src="{{ url_for('static', filename='i/reciclaje.png') }}" alt="♻️">
+            {% elif accion.tipo == 'Ahorro de agua' %}<img class="iconodetalle" src="{{ url_for('static', filename='i/gota.png') }}" alt="💧">
+            {% elif accion.tipo == 'Transporte' %}🚲
+            {% else %}⚡
+            {% endif %}
+        </div>
+        <div class="detalle-info">
+            <h2>{{ accion.tipo }}</h2>
+            <p>{{ accion.descripcion }}</p>
+            <small>📅 {{ accion.fecha }}</small>
+        </div>
+        <div class="detalle-impacto">
+            <strong>{{ accion.impacto }}</strong>
+            <small>de impacto</small>
+        </div>
+    </article>
+
+        <div class="formulario-botones">
+        <a href="{{ url_for('editar', id=accion.id) }}" class="btn btn-suave btn-suave-azul">
+            <img class="btn-img" src="{{ url_for('static', filename='i/editar.png') }}" alt=""> Editar
+        </a>
+        <form method="post" action="{{ url_for('eliminar', id=accion.id) }}" style="display:inline">
+            <button type="submit" class="btn btn-suave btn-suave-rojo btn-eliminar">
+                <img class="btn-img" src="{{ url_for('static', filename='i/eliminar.png') }}" alt=""> Eliminar
+            </button>
+        </form>
+    </div>
+
+    <div class="detalle-aviso">
+        <h3><img class="iconotarjeta" src="{{ url_for('static', filename='i/impacto.png') }}" alt="🌱"> Impacto ambiental</h3>
+        <p>Con esta acción ayudas a cuidar el planeta. Cada pequeño cambio suma para un futuro más limpio.</p>
+    </div>
+
+    <div class="detalle-gracias">
+        <strong>¡Gracias por ser parte del cambio!</strong>
+        <p>Cada acción cuenta para un planeta más limpio y saludable.</p>
+    </div>
+</section>
+{% endblock %}

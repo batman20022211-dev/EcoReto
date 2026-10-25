@@ -1,0 +1,98 @@
+{% extends "panel.html" %}
+{% block title %}Inicio | Eco-Reto{% endblock %}
+{% set pagina = 'inicio' %}
+{% block contenido %}
+<section class="bienvenida">
+    <div>
+        <h1>¡Bienvenido a Misión Eco-Reto!</h1>
+        <p>Registra, consulta y comparte las acciones que ayudan al planeta.</p>
+    </div>
+    <div class="bienvenida-icono"><img src="{{ url_for('static', filename='i/planta.png') }}" alt="🌱"></div>
+</section>
+
+<section class="resumen">
+    <article class="tarjeta tarjeta-verde">
+        <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/hojas1.png') }}" alt="🍃"></span>
+        <div>
+            <strong>{{ resumen.total }}</strong>
+            <small>Acciones registradas</small>
+        </div>
+    </article>
+    <article class="tarjeta tarjeta-azul">
+        <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/gota.png') }}" alt="💧"></span>
+        <div>
+            <strong>{{ resumen.litros }}</strong>
+            <small>Litros de agua ahorrados</small>
+        </div>
+    </article>
+    <article class="tarjeta tarjeta-amarilla">
+        <span><img class="iconotarjeta" src="{{ url_for('static', filename='i/reciclaje.png') }}" alt="♻️"></span>
+        <div>
+            <strong>{{ resumen.reciclado }} kg</strong>
+            <small>Materiales reciclados</small>
+        </div>
+    </article>
+    <article class="tarjeta tarjeta-rosa">
+        <span><img class="iconotarjeta1" src="{{ url_for('static', filename='i/nube.png') }}" alt="🍃"></span>
+        <div>
+            <strong>{{ resumen.co2 }} kg</strong>
+            <small>CO₂ evitado</small>
+        </div>
+    </article>
+</section>
+
+{% set clase = {'Reciclaje': 'reciclaje', 'Ahorro de agua': 'agua', 'Transporte': 'transporte', 'Energía': 'energia'} %}
+<section class="acciones">
+    <div class="acciones-cabecera">
+        <h2>Mis acciones registradas</h2>
+        <label class="campo campo-buscar">
+            <span><img class="btn-img" src="{{ url_for('static', filename='i/lupa.png') }}" alt="Ver"></span>
+            <input type="search" id="buscar" placeholder="Buscar acción...">
+        </label>
+    </div>
+
+    <div class="tabla-contenedor">
+        <table class="tabla" id="tabla-acciones">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Impacto</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not acciones %}
+                <tr>
+                    <td colspan="6">Todavía no hay acciones registradas.</td>
+                </tr>
+                {% endif %}
+                {% for a in acciones %}
+                <tr>
+                    <td>{{ a.id }}</td>
+                    <td>{{ a.fecha }}</td>
+                    <td><span class="etiqueta etiqueta-{{ clase[a.tipo] }}">{{ a.tipo }}</span></td>
+                    <td>{{ a.descripcion }}</td>
+                    <td>{{ a.impacto }}</td>
+                                        <td class="celda-botones">
+                        <a href="{{ url_for('detalle', id=a.id) }}" class="btn-icono btn-ver" title="Ver">
+                            <img class="btn-img" src="{{ url_for('static', filename='i/ver.png') }}" alt="Ver">
+                        </a>
+                        <a href="{{ url_for('editar', id=a.id) }}" class="btn-icono btn-editar" title="Editar">
+                            <img class="btn-img" src="{{ url_for('static', filename='i/editar.png') }}" alt="Editar">
+                        </a>
+                        <form method="post" action="{{ url_for('eliminar', id=a.id) }}" class="formulario-eliminar">
+                            <button type="submit" class="btn-icono btn-eliminar" title="Eliminar">
+                                <img class="btn-img" src="{{ url_for('static', filename='i/eliminar.png') }}" alt="Eliminar">
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

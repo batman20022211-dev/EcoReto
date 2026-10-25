@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block clase %}pagina-panel{% endblock %}
+{% block body %}
+<div class="app">
+    <aside class="sidebar" id="sidebar">
+        <div class="marca">Misión <span><img src="{{ url_for('static', filename='i/planta.png') }}" alt="🌱"></span><br>Eco-Reto</div>
+        <nav class="menu">
+            <a href="{{ url_for('principal') }}" class="{{ 'activo' if pagina == 'inicio' }}"><img class="iconotarjeta2" src="{{ url_for('static', filename='i/casa.png') }}" alt="🏠"> Inicio</a>
+            <a href="{{ url_for('principal') }}" class="{{ 'activo' if pagina == 'acciones' }}"><img class="iconotarjeta2" src="{{ url_for('static', filename='i/acciones.png') }}" alt="🗂️"> Mis acciones</a>
+            <a href="{{ url_for('nueva') }}" class="{{ 'activo' if pagina == 'nueva' }}"><img class="iconotarjeta2" src="{{ url_for('static', filename='i/nueva.png') }}" alt="➕"> Nueva acción</a>
+            <a href="{{ url_for('estadisticas') }}" class="{{ 'activo' if pagina == 'estadisticas' }}"><img class="iconotarjeta3" src="{{ url_for('static', filename='i/estadistica.png') }}" alt="📊"> Estadísticas</a>
+            <a href="{{ url_for('salir') }}"><img class="iconotarjeta2" src="{{ url_for('static', filename='i/cerrar.png') }}" alt="🚪"> Cerrar sesión</a>
+        </nav>
+    </aside>
+    <div class="fondo-menu" id="fondo-menu"></div>
+    <div class="contenido-area">
+        <header class="topbar">
+            <button type="button" class="btn-menu" id="btn-menu" aria-label="Abrir menú">☰</button>
+            <div class="usuario">👤 Hola, {{ session.usuario }}</div>
+        </header>
+        <main class="contenido">
+            {% block contenido %}{% endblock %}
+        </main>
+    </div>
+</div>
+{% endblock %}

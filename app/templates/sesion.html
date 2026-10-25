@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Iniciar sesión | Eco-Reto{% endblock %}
+{% block clase %}pagina-login{% endblock %}
+{% block body %}
+<main class="portada">
+    <section class="portada-texto">
+        <img class="portada-logo" src="{{ url_for('static', filename='i/2.png') }}" alt="Misión Eco-Reto">
+        <p id="eslogan">Pequeñas acciones<br>grandes cambios</p>
+    </section>
+
+    <section class="s-tarjeta">
+        <div class="s-icono"><img class="iconoimg" src="{{ url_for('static', filename='i/hojas.png') }}" alt="🍃"></div>
+        <h2>Iniciar sesión</h2>
+        <p class="sp">Ingresa para registrar tus acciones ecológicas.</p>
+
+        <form id="sesion" method="post">
+            <label class="campo">
+                <img class="icono-img" src="{{ url_for('static', filename='i/gato.png') }}" alt="Usuario">
+                <input type="text" name="usuario" id="usuario" placeholder="Usuario" required>
+            </label>
+            <label class="campo">
+                <img class="icono-img" src="{{ url_for('static', filename='i/candado.png') }}" alt="Contraseña">
+                <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" required>
+            </label>
+            <button type="submit" class="btn btn-e">Entrar</button>
+        </form>
+        <p class="p">¿No tienes cuenta? <a href="{{ url_for('registrar') }}">Regístrate</a></p>
+    </section>
+</main>
+{% endblock %}

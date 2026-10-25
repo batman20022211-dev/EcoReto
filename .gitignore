@@ -1,0 +1,6 @@
+ecoreto.db
+__pycache__/
+.vscode/
+venv/
+.venv/
+.env

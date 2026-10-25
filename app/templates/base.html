@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="google" content="notranslate">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+        {% block meta %}{% endblock %}
+        <title>{% block title %}Misión Eco-Reto{% endblock %}</title>
+    </head>
+    <body class="{% block clase %}{% endblock %}">
+        {% block body %}{% endblock %}
+            {% with avisos = get_flashed_messages(with_categories=true) %}
+        <div class="mensaje" id="mensaje" role="dialog" aria-modal="true" aria-labelledby="mensaje-titulo"{% if avisos %} data-tipo="{{ avisos[0][0] }}" data-texto="{{ avisos[0][1] }}"{% endif %}>
+            <div class="mensaje-caja">
+                <img class="mensaje-icono" id="mensaje-icono" src="{{ url_for('static', filename='i/6.png') }}" alt="Gato">
+                <h2 id="mensaje-titulo"></h2>
+                <p id="mensaje-texto"></p>
+                <button type="button" class="btn-e" id="mensaje-cerrar">Entendido</button>
+            </div>
+        </div>
+        {% endwith %}
+    </body>
+</html>
