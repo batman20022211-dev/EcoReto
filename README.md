@@ -10,12 +10,12 @@ Motivar a los estudiantes a cuidar el planeta mostrando, con datos propios, cuá
 
 ## Integrantes del equipo
 
-| Nombre                           | Rol   |
-|----------------------------------|-------|
-| Saúl Alexis Vargas Andres        | (Rol) |
-| Angélica Lizet Medina Rodriguez  | (Rol) |
-| Esmeralda Yorlei Torres Trinidad | (Rol) |
-| Amalia Guadalupe Santiago Olvera | (Rol) |
+| Nombre                           
+|----------------------------------|
+| Saúl Alexis Vargas Andres        |
+| Angélica Lizet Medina Rodriguez  |
+| Esmeralda Yorlei Torres Trinidad |
+| Amalia Guadalupe Santiago Olvera |
 
 Grupo: 306
 ## Tecnologías utilizadas
@@ -173,6 +173,6 @@ La cadena de conexión y la clave son secretos: nunca se escriben en el código 
 
 ## Enlace del proyecto
 
-Repositorio: (lo escribes sin los parentesis, es el enlace al repositorio de github)
+Repositorio: https://github.com/batman20022211-dev/EcoReto.git
 
-Aplicación publicada: (enlace)
+Aplicación publicada: https://ecoreto-sas9.onrender.com
